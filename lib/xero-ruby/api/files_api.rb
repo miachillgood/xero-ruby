@@ -424,7 +424,7 @@ module XeroRuby
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :pagesize pass an optional page size value
     # @option opts [Integer] :page number of records to skip for pagination
-    # @option opts [String] :sort values to sort by
+    # @option opts [String] :sort values to sort by (default to 'CreatedDateUtc')
     # @option opts [String] :direction direction to sort by
     # @return [Array<Association>]
     def get_associations_by_object(xero_tenant_id, object_id, opts = {})
@@ -463,7 +463,7 @@ module XeroRuby
         fail ArgumentError, 'invalid value for "opts[:"page"]" when calling FilesApi.get_associations_by_object, must be greater than or equal to 1.'
       end
 
-      allowable_values = ["Name", "CreatedDateUTC"]
+      allowable_values = ["Name", "Size", "CreatedDateUtc", "AssociationDateUtc"]
       if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
         fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
       end
