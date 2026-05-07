@@ -25,7 +25,6 @@ Method | HTTP request | Description
 [**create_credit_note_history**](AccountingApi.md#create_credit_note_history) | **PUT** /CreditNotes/{CreditNoteID}/History | Retrieves history records of a specific credit note
 [**create_credit_notes**](AccountingApi.md#create_credit_notes) | **PUT** /CreditNotes | Creates a new credit note
 [**create_currency**](AccountingApi.md#create_currency) | **PUT** /Currencies | Create a new currency for a Xero organisation
-[**create_employees**](AccountingApi.md#create_employees) | **PUT** /Employees | Creates new employees used in Xero payrun
 [**create_expense_claim_history**](AccountingApi.md#create_expense_claim_history) | **PUT** /ExpenseClaims/{ExpenseClaimID}/History | Creates a history record for a specific expense claim
 [**create_expense_claims**](AccountingApi.md#create_expense_claims) | **PUT** /ExpenseClaims | Creates expense claims
 [**create_invoice_attachment_by_file_name**](AccountingApi.md#create_invoice_attachment_by_file_name) | **PUT** /Invoices/{InvoiceID}/Attachments/{FileName} | Creates an attachment for a specific invoice or purchase bill by filename
@@ -117,8 +116,6 @@ Method | HTTP request | Description
 [**get_credit_note_history**](AccountingApi.md#get_credit_note_history) | **GET** /CreditNotes/{CreditNoteID}/History | Retrieves history records of a specific credit note
 [**get_credit_notes**](AccountingApi.md#get_credit_notes) | **GET** /CreditNotes | Retrieves any credit notes
 [**get_currencies**](AccountingApi.md#get_currencies) | **GET** /Currencies | Retrieves currencies for your Xero organisation
-[**get_employee**](AccountingApi.md#get_employee) | **GET** /Employees/{EmployeeID} | Retrieves a specific employee used in Xero payrun using a unique employee Id
-[**get_employees**](AccountingApi.md#get_employees) | **GET** /Employees | Retrieves employees used in Xero payrun
 [**get_expense_claim**](AccountingApi.md#get_expense_claim) | **GET** /ExpenseClaims/{ExpenseClaimID} | Retrieves a specific expense claim using a unique expense claim Id
 [**get_expense_claim_history**](AccountingApi.md#get_expense_claim_history) | **GET** /ExpenseClaims/{ExpenseClaimID}/History | Retrieves history records of a specific expense claim
 [**get_expense_claims**](AccountingApi.md#get_expense_claims) | **GET** /ExpenseClaims | Retrieves expense claims
@@ -223,7 +220,6 @@ Method | HTTP request | Description
 [**update_or_create_bank_transactions**](AccountingApi.md#update_or_create_bank_transactions) | **POST** /BankTransactions | Updates or creates one or more spent or received money transaction
 [**update_or_create_contacts**](AccountingApi.md#update_or_create_contacts) | **POST** /Contacts | Updates or creates one or more contacts in a Xero organisation
 [**update_or_create_credit_notes**](AccountingApi.md#update_or_create_credit_notes) | **POST** /CreditNotes | Updates or creates one or more credit notes
-[**update_or_create_employees**](AccountingApi.md#update_or_create_employees) | **POST** /Employees | Creates a single new employees used in Xero payrun
 [**update_or_create_invoices**](AccountingApi.md#update_or_create_invoices) | **POST** /Invoices | Updates or creates one or more sales invoices or purchase bills
 [**update_or_create_items**](AccountingApi.md#update_or_create_items) | **POST** /Items | Updates or creates one or more items
 [**update_or_create_manual_journals**](AccountingApi.md#update_or_create_manual_journals) | **POST** /ManualJournals | Updates or creates a single manual journal
@@ -1740,80 +1736,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Currencies**](Currencies.md)
-
-### Authorization
-
-[OAuth2](../README.md#OAuth2)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## create_employees
-
-> Employees create_employees(xero_tenant_id, employees, opts)
-
-Creates new employees used in Xero payrun
-
-This endpoint is deprecated and will be removed April 28, 2026
-
-### Example
-
-```ruby
-# load the gem
-require 'xero-ruby'
-
-creds = {
-  client_id: ENV['CLIENT_ID'],
-  client_secret: ENV['CLIENT_SECRET'],
-  redirect_uri: ENV['REDIRECT_URI'],
-  scopes: ENV['SCOPES']
-}
-xero_client = XeroRuby::ApiClient.new(credentials: creds)
-
-token_set = fetch_valid_token_set(user) # example
-
-xero_client.refresh_token_set(token_set)
-
-# You need to namespace your api method call to one of the following api sets
-# [:accounting_api, :assets_api, :projects_api, :files_api, :payroll_au_api, :payroll_nz_api, :payroll_uk_api, :app_store_api]
-
-api_instance = xero_client.<api_set>
-
-
-
-xero_tenant_id = 'YOUR_XERO_TENANT_ID' # String | Xero identifier for Tenant
-employees = {"Employees":[{"FirstName":"Nick","LastName":"Fury","ExternalLink":{"Url":"http://twitter.com/#!/search/Nick+Fury"}}]} # Employees | Employees with array of Employee object in body of request
-opts = {
-  summarize_errors: false, # Boolean | If false return 200 OK and mix of successfully created objects and any with validation errors
-
-  idempotency_key: 'KEY_VALUE' # String | This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
-}
-
-begin
-  #Creates new employees used in Xero payrun
-  result = api_instance.create_employees(xero_tenant_id, employees, opts)
-  p result
-rescue XeroRuby::Accounting::ApiError => e
-  puts "Exception when calling AccountingApi->create_employees: #{e}"
-end
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xero_tenant_id** | **String**| Xero identifier for Tenant | 
- **employees** | [**Employees**](Employees.md)| Employees with array of Employee object in body of request | 
- **summarize_errors** | **Boolean**| If false return 200 OK and mix of successfully created objects and any with validation errors | [optional] [default to false]
- **idempotency_key** | **String**| This allows you to safely retry requests without the risk of duplicate processing. 128 character max. | [optional] 
-
-### Return type
-
-[**Employees**](Employees.md)
 
 ### Authorization
 
@@ -8097,147 +8019,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Currencies**](Currencies.md)
-
-### Authorization
-
-[OAuth2](../README.md#OAuth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## get_employee
-
-> Employees get_employee(xero_tenant_id, employee_id)
-
-Retrieves a specific employee used in Xero payrun using a unique employee Id
-
-This endpoint is deprecated and will be removed April 28, 2026
-
-### Example
-
-```ruby
-# load the gem
-require 'xero-ruby'
-
-creds = {
-  client_id: ENV['CLIENT_ID'],
-  client_secret: ENV['CLIENT_SECRET'],
-  redirect_uri: ENV['REDIRECT_URI'],
-  scopes: ENV['SCOPES']
-}
-xero_client = XeroRuby::ApiClient.new(credentials: creds)
-
-token_set = fetch_valid_token_set(user) # example
-
-xero_client.refresh_token_set(token_set)
-
-# You need to namespace your api method call to one of the following api sets
-# [:accounting_api, :assets_api, :projects_api, :files_api, :payroll_au_api, :payroll_nz_api, :payroll_uk_api, :app_store_api]
-
-api_instance = xero_client.<api_set>
-
-
-
-xero_tenant_id = 'YOUR_XERO_TENANT_ID' # String | Xero identifier for Tenant
-employee_id = '00000000-0000-0000-0000-000000000000' # String | Unique identifier for a Employee
-begin
-  #Retrieves a specific employee used in Xero payrun using a unique employee Id
-  result = api_instance.get_employee(xero_tenant_id, employee_id)
-  p result
-rescue XeroRuby::Accounting::ApiError => e
-  puts "Exception when calling AccountingApi->get_employee: #{e}"
-end
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xero_tenant_id** | **String**| Xero identifier for Tenant | 
- **employee_id** | [**String**](.md)| Unique identifier for a Employee | 
-
-### Return type
-
-[**Employees**](Employees.md)
-
-### Authorization
-
-[OAuth2](../README.md#OAuth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## get_employees
-
-> Employees get_employees(xero_tenant_id, opts)
-
-Retrieves employees used in Xero payrun
-
-This endpoint is deprecated and will be removed April 28, 2026
-
-### Example
-
-```ruby
-# load the gem
-require 'xero-ruby'
-
-creds = {
-  client_id: ENV['CLIENT_ID'],
-  client_secret: ENV['CLIENT_SECRET'],
-  redirect_uri: ENV['REDIRECT_URI'],
-  scopes: ENV['SCOPES']
-}
-xero_client = XeroRuby::ApiClient.new(credentials: creds)
-
-token_set = fetch_valid_token_set(user) # example
-
-xero_client.refresh_token_set(token_set)
-
-# You need to namespace your api method call to one of the following api sets
-# [:accounting_api, :assets_api, :projects_api, :files_api, :payroll_au_api, :payroll_nz_api, :payroll_uk_api, :app_store_api]
-
-api_instance = xero_client.<api_set>
-
-
-
-xero_tenant_id = 'YOUR_XERO_TENANT_ID' # String | Xero identifier for Tenant
-opts = {
-  if_modified_since: DateTime.parse('2020-02-06T12:17:43.202-08:00'), # DateTime | Only records created or modified since this timestamp will be returned
-
-  where: 'Status==\"ACTIVE\"', # String | Filter by an any element
-
-  order: 'LastName ASC' # String | Order by an any element
-}
-
-begin
-  #Retrieves employees used in Xero payrun
-  result = api_instance.get_employees(xero_tenant_id, opts)
-  p result
-rescue XeroRuby::Accounting::ApiError => e
-  puts "Exception when calling AccountingApi->get_employees: #{e}"
-end
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xero_tenant_id** | **String**| Xero identifier for Tenant | 
- **if_modified_since** | **DateTime**| Only records created or modified since this timestamp will be returned | [optional] 
- **where** | **String**| Filter by an any element | [optional] 
- **order** | **String**| Order by an any element | [optional] 
-
-### Return type
-
-[**Employees**](Employees.md)
 
 ### Authorization
 
@@ -15480,80 +15261,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CreditNotes**](CreditNotes.md)
-
-### Authorization
-
-[OAuth2](../README.md#OAuth2)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## update_or_create_employees
-
-> Employees update_or_create_employees(xero_tenant_id, employees, opts)
-
-Creates a single new employees used in Xero payrun
-
-This endpoint is deprecated and will be removed April 28, 2026
-
-### Example
-
-```ruby
-# load the gem
-require 'xero-ruby'
-
-creds = {
-  client_id: ENV['CLIENT_ID'],
-  client_secret: ENV['CLIENT_SECRET'],
-  redirect_uri: ENV['REDIRECT_URI'],
-  scopes: ENV['SCOPES']
-}
-xero_client = XeroRuby::ApiClient.new(credentials: creds)
-
-token_set = fetch_valid_token_set(user) # example
-
-xero_client.refresh_token_set(token_set)
-
-# You need to namespace your api method call to one of the following api sets
-# [:accounting_api, :assets_api, :projects_api, :files_api, :payroll_au_api, :payroll_nz_api, :payroll_uk_api, :app_store_api]
-
-api_instance = xero_client.<api_set>
-
-
-
-xero_tenant_id = 'YOUR_XERO_TENANT_ID' # String | Xero identifier for Tenant
-employees = {"Employees":[{"FirstName":"Nick","LastName":"Fury","ExternalLink":{"Url":"http://twitter.com/#!/search/Nick+Fury"}}]} # Employees | Employees with array of Employee object in body of request
-opts = {
-  summarize_errors: false, # Boolean | If false return 200 OK and mix of successfully created objects and any with validation errors
-
-  idempotency_key: 'KEY_VALUE' # String | This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
-}
-
-begin
-  #Creates a single new employees used in Xero payrun
-  result = api_instance.update_or_create_employees(xero_tenant_id, employees, opts)
-  p result
-rescue XeroRuby::Accounting::ApiError => e
-  puts "Exception when calling AccountingApi->update_or_create_employees: #{e}"
-end
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xero_tenant_id** | **String**| Xero identifier for Tenant | 
- **employees** | [**Employees**](Employees.md)| Employees with array of Employee object in body of request | 
- **summarize_errors** | **Boolean**| If false return 200 OK and mix of successfully created objects and any with validation errors | [optional] [default to false]
- **idempotency_key** | **String**| This allows you to safely retry requests without the risk of duplicate processing. 128 character max. | [optional] 
-
-### Return type
-
-[**Employees**](Employees.md)
 
 ### Authorization
 

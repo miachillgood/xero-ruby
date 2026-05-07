@@ -406,7 +406,7 @@ opts = {
 
   page: 2, # Integer | number of records to skip for pagination
 
-  sort: 'Associations/{ObjectId}?sort=CreatedDateUtc', # String | values to sort by
+  sort: 'CreatedDateUtc', # String | values to sort by
 
   direction: 'Associations/{ObjectId}?sort=CreatedDateUtc&direction=DESC' # String | direction to sort by
 }
@@ -429,7 +429,7 @@ Name | Type | Description  | Notes
  **object_id** | [**String**](.md)| Object id for single object | 
  **pagesize** | **Integer**| pass an optional page size value | [optional] 
  **page** | **Integer**| number of records to skip for pagination | [optional] 
- **sort** | **String**| values to sort by | [optional] 
+ **sort** | **String**| values to sort by | [optional] [default to &#39;CreatedDateUtc&#39;]
  **direction** | **String**| direction to sort by | [optional] 
 
 ### Return type

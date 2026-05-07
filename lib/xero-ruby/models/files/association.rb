@@ -25,6 +25,12 @@ module XeroRuby::Files
     # The size of the associated file in bytes. Note- The Size element is only returned when using /Associations/{ObjectId} endpoint.
     attr_accessor :size
     
+    # The date the file was created (UTC). Note- The CreatedDateUtc element is only returned when using /Associations/{ObjectId} endpoint.
+    attr_accessor :created_date_utc
+    
+    # The date the file was associated with the object (UTC). Note- The AssociationDateUtc element is only returned when using /Associations/{ObjectId} endpoint.
+    attr_accessor :association_date_utc
+    
     # The unique identifier of the file
     attr_accessor :file_id
     
@@ -43,6 +49,8 @@ module XeroRuby::Files
         :'send_with_object' => :'SendWithObject',
         :'name' => :'Name',
         :'size' => :'Size',
+        :'created_date_utc' => :'CreatedDateUtc',
+        :'association_date_utc' => :'AssociationDateUtc',
         :'file_id' => :'FileId',
         :'object_id' => :'ObjectId',
         :'object_group' => :'ObjectGroup',
@@ -56,6 +64,8 @@ module XeroRuby::Files
         :'send_with_object' => :'Boolean',
         :'name' => :'String',
         :'size' => :'Integer',
+        :'created_date_utc' => :'DateTime',
+        :'association_date_utc' => :'DateTime',
         :'file_id' => :'String',
         :'object_id' => :'String',
         :'object_group' => :'ObjectGroup',
@@ -88,6 +98,14 @@ module XeroRuby::Files
 
       if attributes.key?(:'size')
         self.size = attributes[:'size']
+      end
+
+      if attributes.key?(:'created_date_utc')
+        self.created_date_utc = attributes[:'created_date_utc']
+      end
+
+      if attributes.key?(:'association_date_utc')
+        self.association_date_utc = attributes[:'association_date_utc']
       end
 
       if attributes.key?(:'file_id')
@@ -128,6 +146,8 @@ module XeroRuby::Files
           send_with_object == o.send_with_object &&
           name == o.name &&
           size == o.size &&
+          created_date_utc == o.created_date_utc &&
+          association_date_utc == o.association_date_utc &&
           file_id == o.file_id &&
           object_id == o.object_id &&
           object_group == o.object_group &&
@@ -143,7 +163,7 @@ module XeroRuby::Files
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [send_with_object, name, size, file_id, object_id, object_group, object_type].hash
+      [send_with_object, name, size, created_date_utc, association_date_utc, file_id, object_id, object_group, object_type].hash
     end
 
     # Builds the object from hash
