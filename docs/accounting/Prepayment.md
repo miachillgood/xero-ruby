@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **updated_date_utc** | **DateTime** | UTC timestamp of last update to the prepayment | [optional] 
 **currency_code** | [**CurrencyCode**](CurrencyCode.md) |  | [optional] 
 **prepayment_id** | **String** | Xero generated unique identifier | [optional] 
+**branding_theme_id** | **String** | The unique identifier of the branding template applied to a receive prepayment | [optional] 
 **currency_rate** | **BigDecimal** | The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com day rate is used | [optional] 
 **remaining_credit** | **BigDecimal** | The remaining credit balance on the prepayment | [optional] 
 **allocations** | [**Array&lt;Allocation&gt;**](Allocation.md) | See Allocations | [optional] 
@@ -45,6 +46,7 @@ instance = XeroRuby::Accounting::Prepayment.new(type: null,
                                  updated_date_utc: /Date(1573755038314)/,
                                  currency_code: null,
                                  prepayment_id: null,
+                                 branding_theme_id: null,
                                  currency_rate: null,
                                  remaining_credit: null,
                                  allocations: null,
