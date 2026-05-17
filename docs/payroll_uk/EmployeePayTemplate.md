@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **employee_id** | **String** | Unique identifier for the employee | [optional] 
-**earning_templates** | [**Array&lt;EarningsTemplate&gt;**](EarningsTemplate.md) |  | [optional] 
+**earning_templates** | [**Array&lt;EarningsTemplate&gt;**](EarningsTemplate.md) |  | 
 
 ## Code Sample
 
