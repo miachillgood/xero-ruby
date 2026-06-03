@@ -49,7 +49,7 @@ module XeroRuby::PayrollAu
     # Set this to indicate that the leave type is exempt from superannuation guarantee contribution
     attr_accessor :sgc_exempt
     
-    # Optional Boolean to determine if the earnings rate is considered as qualifying earnings for superannuation guarantee calculations. When not specified value is calculated based on earnings type and superannuation settings
+    # Boolean to determine if the leave type is considered as qualifying earnings for superannuation guarantee calculations
     attr_accessor :is_qualifying_earnings
     
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -160,6 +160,10 @@ module XeroRuby::PayrollAu
         invalid_properties.push('invalid value for "name", the character length must be smaller than or equal to 100.')
       end
 
+      if @is_qualifying_earnings.nil?
+        invalid_properties.push('invalid value for "is_qualifying_earnings", is_qualifying_earnings cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -167,6 +171,7 @@ module XeroRuby::PayrollAu
     # @return true if the model is valid
     def valid?
       return false if !@name.nil? && @name.to_s.length > 100
+      return false if @is_qualifying_earnings.nil?
       true
     end
 

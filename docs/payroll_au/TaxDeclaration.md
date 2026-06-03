@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 **has_student_startup_loan** | **Boolean** | If the employee is eligible for student startup loan rules | [optional] 
 **has_loan_or_student_debt** | **Boolean** | If the employee has any of the following loans or debts: Higher Education Loan Program (HELP/HECS), VET Student Loan (VSL), Financial Supplement (FS), Student Start-up Loan (SSL), or Trade Support Loan (TSL) | [optional] 
 **updated_date_utc** | **DateTime** | Last modified timestamp | [optional] 
-**include_leave_loading_in_qualifying_earnings** | **Boolean** | Optional Boolean to determine if leave loading is considered as qualifying earnings for superannuation guarantee calculations | [optional] 
+**include_leave_loading_in_qualifying_earnings** | **Boolean** | Boolean to determine if leave loading is considered as qualifying earnings for superannuation guarantee calculations. Required when IncludeLeaveLoadingInSGC is specified in the payload | [optional] 
 
 ## Code Sample
 

@@ -79,7 +79,7 @@ module XeroRuby::PayrollAu
     # Last modified timestamp
     attr_accessor :updated_date_utc
     
-    # Optional Boolean to determine if leave loading is considered as qualifying earnings for superannuation guarantee calculations
+    # Boolean to determine if leave loading is considered as qualifying earnings for superannuation guarantee calculations. Required when IncludeLeaveLoadingInSGC is specified in the payload
     attr_accessor :include_leave_loading_in_qualifying_earnings
     
     # Attribute mapping from ruby-style variable name to JSON key.
