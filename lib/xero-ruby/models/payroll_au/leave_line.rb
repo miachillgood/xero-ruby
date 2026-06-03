@@ -31,7 +31,7 @@ module XeroRuby::PayrollAu
     # amount of leave line
     attr_accessor :include_superannuation_guarantee_contribution
     
-    # Optional Boolean to determine if the earnings rate is considered as qualifying earnings for superannuation guarantee calculations. When not specified value is calculated based on superannuation settings
+    # Boolean to determine if the leave line is considered as qualifying earnings for superannuation guarantee calculations
     attr_accessor :is_qualifying_earnings
     
     # Number of units for leave line.
@@ -129,12 +129,17 @@ module XeroRuby::PayrollAu
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @is_qualifying_earnings.nil?
+        invalid_properties.push('invalid value for "is_qualifying_earnings", is_qualifying_earnings cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @is_qualifying_earnings.nil?
       true
     end
 

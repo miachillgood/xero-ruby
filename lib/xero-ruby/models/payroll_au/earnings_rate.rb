@@ -34,7 +34,7 @@ module XeroRuby::PayrollAu
     # Boolean to determine if the earnings rate is reportable or exempt from W1
     attr_accessor :is_reportable_as_w1
     
-    # Optional Boolean to determine if the earnings rate is considered as qualifying earnings for superannuation guarantee calculations. When not specified value is calculated based on earnings type and superannuation settings
+    # Boolean to determine if the earnings rate is considered as qualifying earnings for superannuation guarantee calculations
     attr_accessor :is_qualifying_earnings
     
     # Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
@@ -245,6 +245,10 @@ module XeroRuby::PayrollAu
         invalid_properties.push('invalid value for "type_of_units", the character length must be smaller than or equal to 50.')
       end
 
+      if @is_qualifying_earnings.nil?
+        invalid_properties.push('invalid value for "is_qualifying_earnings", is_qualifying_earnings cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -253,6 +257,7 @@ module XeroRuby::PayrollAu
     def valid?
       return false if !@name.nil? && @name.to_s.length > 100
       return false if !@type_of_units.nil? && @type_of_units.to_s.length > 50
+      return false if @is_qualifying_earnings.nil?
       true
     end
 
