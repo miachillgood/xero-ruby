@@ -55,9 +55,42 @@ module XeroRuby::Accounting
     # UTC timestamp of creation date of bank transfer
     attr_accessor :created_date_utc
     
+    # AUTHORISED or DELETED (read-only). New bank transfers will have a status of AUTHORISED.
+    attr_accessor :status
+    AUTHORISED ||= "AUTHORISED".freeze
+    DELETED ||= "DELETED".freeze
+    
+    # Optional Tracking Category for the source account – see Tracking. A bank transfer can have a maximum of 2 tracking categories per account.
+    attr_accessor :from_tracking
+    
+    # Optional Tracking Category for the destination account – see Tracking. A bank transfer can have a maximum of 2 tracking categories per account.
+    attr_accessor :to_tracking
+    
     # Displays array of validation error messages from the API
     attr_accessor :validation_errors
     
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -74,6 +107,9 @@ module XeroRuby::Accounting
         :'reference' => :'Reference',
         :'has_attachments' => :'HasAttachments',
         :'created_date_utc' => :'CreatedDateUTC',
+        :'status' => :'Status',
+        :'from_tracking' => :'FromTracking',
+        :'to_tracking' => :'ToTracking',
         :'validation_errors' => :'ValidationErrors'
       }
     end
@@ -94,6 +130,9 @@ module XeroRuby::Accounting
         :'reference' => :'String',
         :'has_attachments' => :'Boolean',
         :'created_date_utc' => :'DateTime',
+        :'status' => :'String',
+        :'from_tracking' => :'Array<TrackingReference>',
+        :'to_tracking' => :'Array<TrackingReference>',
         :'validation_errors' => :'Array<ValidationError>'
       }
     end
@@ -171,6 +210,22 @@ module XeroRuby::Accounting
         self.created_date_utc = attributes[:'created_date_utc']
       end
 
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'from_tracking')
+        if (value = attributes[:'from_tracking']).is_a?(Array)
+          self.from_tracking = value
+        end
+      end
+
+      if attributes.key?(:'to_tracking')
+        if (value = attributes[:'to_tracking']).is_a?(Array)
+          self.to_tracking = value
+        end
+      end
+
       if attributes.key?(:'validation_errors')
         if (value = attributes[:'validation_errors']).is_a?(Array)
           self.validation_errors = value
@@ -203,7 +258,19 @@ module XeroRuby::Accounting
       return false if @from_bank_account.nil?
       return false if @to_bank_account.nil?
       return false if @amount.nil?
+      status_validator = EnumAttributeValidator.new('String', ["AUTHORISED", "DELETED"])
+      return false unless status_validator.valid?(@status)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] status Object to be assigned
+    def status=(status)
+      validator = EnumAttributeValidator.new('String', ["AUTHORISED", "DELETED"])
+      unless validator.valid?(status)
+        fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
+      end
+      @status = status
     end
 
     # Checks equality by comparing each attribute.
@@ -224,6 +291,9 @@ module XeroRuby::Accounting
           reference == o.reference &&
           has_attachments == o.has_attachments &&
           created_date_utc == o.created_date_utc &&
+          status == o.status &&
+          from_tracking == o.from_tracking &&
+          to_tracking == o.to_tracking &&
           validation_errors == o.validation_errors
     end
 
@@ -236,7 +306,7 @@ module XeroRuby::Accounting
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [from_bank_account, to_bank_account, amount, date, bank_transfer_id, currency_rate, from_bank_transaction_id, to_bank_transaction_id, from_is_reconciled, to_is_reconciled, reference, has_attachments, created_date_utc, validation_errors].hash
+      [from_bank_account, to_bank_account, amount, date, bank_transfer_id, currency_rate, from_bank_transaction_id, to_bank_transaction_id, from_is_reconciled, to_is_reconciled, reference, has_attachments, created_date_utc, status, from_tracking, to_tracking, validation_errors].hash
     end
 
     # Builds the object from hash

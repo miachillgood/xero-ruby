@@ -4814,6 +4814,175 @@ module XeroRuby
       return data, status_code, headers
     end
 
+    # Deletes a specific bank transfer
+    # @param xero_tenant_id [String] Xero identifier for Tenant
+    # @param bank_transfer_id [String] Xero generated unique identifier for a bank transfer
+    # @param bank_transfer_delete_by_url_param [BankTransferDeleteByUrlParam] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :idempotency_key This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    # @return [BankTransfers]
+    def delete_bank_transfer(xero_tenant_id, bank_transfer_id, bank_transfer_delete_by_url_param, opts = {})
+      data, _status_code, _headers = delete_bank_transfer_with_http_info(xero_tenant_id, bank_transfer_id, bank_transfer_delete_by_url_param, opts)
+      data
+    end
+
+    # Deletes a specific bank transfer
+    # @param xero_tenant_id [String] Xero identifier for Tenant
+    # @param bank_transfer_id [String] Xero generated unique identifier for a bank transfer
+    # @param bank_transfer_delete_by_url_param [BankTransferDeleteByUrlParam] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :idempotency_key This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    # @return [Array<(BankTransfers, Integer, Hash)>] BankTransfers data, response status code and response headers
+    def delete_bank_transfer_with_http_info(xero_tenant_id, bank_transfer_id, bank_transfer_delete_by_url_param, options = {})
+      opts = options.dup
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountingApi.delete_bank_transfer ...'
+      end
+      # verify the required parameter 'xero_tenant_id' is set
+      if @api_client.config.client_side_validation && xero_tenant_id.nil?
+        fail ArgumentError, "Missing the required parameter 'xero_tenant_id' when calling AccountingApi.delete_bank_transfer"
+      end
+      # verify the required parameter 'bank_transfer_id' is set
+      if @api_client.config.client_side_validation && bank_transfer_id.nil?
+        fail ArgumentError, "Missing the required parameter 'bank_transfer_id' when calling AccountingApi.delete_bank_transfer"
+      end
+      # verify the required parameter 'bank_transfer_delete_by_url_param' is set
+      if @api_client.config.client_side_validation && bank_transfer_delete_by_url_param.nil?
+        fail ArgumentError, "Missing the required parameter 'bank_transfer_delete_by_url_param' when calling AccountingApi.delete_bank_transfer"
+      end
+      # resource path
+      local_var_path = '/BankTransfers/{BankTransferID}'.sub('{' + 'BankTransferID' + '}', bank_transfer_id.to_s)
+
+      # camelize keys of incoming `where` opts
+      opts[:'where'] = @api_client.parameterize_where(opts[:'where']) if !opts[:'where'].nil?
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      
+      # XeroAPI's `IDs` convention openapi-generator does not snake_case properly.. manual over-riding `i_ds` malformations:
+      query_params[:'IDs'] = @api_client.build_collection_param(opts[:'ids'], :csv) if !opts[:'ids'].nil?
+      query_params[:'ContactIDs'] = @api_client.build_collection_param(opts[:'contact_ids'], :csv) if !opts[:'contact_ids'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+      header_params[:'xero-tenant-id'] = xero_tenant_id
+      header_params[:'Idempotency-Key'] = opts[:'idempotency_key'] if !opts[:'idempotency_key'].nil?
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:body] || @api_client.object_to_http_body(bank_transfer_delete_by_url_param) 
+
+      # return_type
+      return_type = opts[:return_type] || 'BankTransfers' 
+
+      # auth_names
+      auth_names = opts[:auth_names] || ['OAuth2']
+
+      new_options = opts.merge(
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, "AccountingApi", new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountingApi#delete_bank_transfer\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Deletes one or more bank transfers
+    # @param xero_tenant_id [String] Xero identifier for Tenant
+    # @param bank_transfers_delete [BankTransfersDelete] BankTransfers with array of BankTransfer objects in request body
+    # @param [Hash] opts the optional parameters
+    # @option opts [Boolean] :summarize_errors If false return 200 OK and mix of successfully created objects and any with validation errors (default to false)
+    # @option opts [String] :idempotency_key This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    # @return [BankTransfers]
+    def delete_bank_transfers(xero_tenant_id, bank_transfers_delete, opts = {})
+      data, _status_code, _headers = delete_bank_transfers_with_http_info(xero_tenant_id, bank_transfers_delete, opts)
+      data
+    end
+
+    # Deletes one or more bank transfers
+    # @param xero_tenant_id [String] Xero identifier for Tenant
+    # @param bank_transfers_delete [BankTransfersDelete] BankTransfers with array of BankTransfer objects in request body
+    # @param [Hash] opts the optional parameters
+    # @option opts [Boolean] :summarize_errors If false return 200 OK and mix of successfully created objects and any with validation errors
+    # @option opts [String] :idempotency_key This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    # @return [Array<(BankTransfers, Integer, Hash)>] BankTransfers data, response status code and response headers
+    def delete_bank_transfers_with_http_info(xero_tenant_id, bank_transfers_delete, options = {})
+      opts = options.dup
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountingApi.delete_bank_transfers ...'
+      end
+      # verify the required parameter 'xero_tenant_id' is set
+      if @api_client.config.client_side_validation && xero_tenant_id.nil?
+        fail ArgumentError, "Missing the required parameter 'xero_tenant_id' when calling AccountingApi.delete_bank_transfers"
+      end
+      # verify the required parameter 'bank_transfers_delete' is set
+      if @api_client.config.client_side_validation && bank_transfers_delete.nil?
+        fail ArgumentError, "Missing the required parameter 'bank_transfers_delete' when calling AccountingApi.delete_bank_transfers"
+      end
+      # resource path
+      local_var_path = '/BankTransfers'
+
+      # camelize keys of incoming `where` opts
+      opts[:'where'] = @api_client.parameterize_where(opts[:'where']) if !opts[:'where'].nil?
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'summarizeErrors'] = opts[:'summarize_errors'] if !opts[:'summarize_errors'].nil?
+      
+      # XeroAPI's `IDs` convention openapi-generator does not snake_case properly.. manual over-riding `i_ds` malformations:
+      query_params[:'IDs'] = @api_client.build_collection_param(opts[:'ids'], :csv) if !opts[:'ids'].nil?
+      query_params[:'ContactIDs'] = @api_client.build_collection_param(opts[:'contact_ids'], :csv) if !opts[:'contact_ids'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+      header_params[:'xero-tenant-id'] = xero_tenant_id
+      header_params[:'Idempotency-Key'] = opts[:'idempotency_key'] if !opts[:'idempotency_key'].nil?
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:body] || @api_client.object_to_http_body(bank_transfers_delete) 
+
+      # return_type
+      return_type = opts[:return_type] || 'BankTransfers' 
+
+      # auth_names
+      auth_names = opts[:auth_names] || ['OAuth2']
+
+      new_options = opts.merge(
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, "AccountingApi", new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountingApi#delete_bank_transfers\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Updates a specific batch payment for invoices and credit notes
     # @param xero_tenant_id [String] Xero identifier for Tenant
     # @param batch_payment_delete [BatchPaymentDelete] 
@@ -7157,6 +7326,7 @@ module XeroRuby
     # @option opts [DateTime] :if_modified_since Only records created or modified since this timestamp will be returned
     # @option opts [String] :where Filter by an any element
     # @option opts [String] :order Order by an any element
+    # @option opts [Boolean] :include_deleted e.g. includeDeleted&#x3D;true - Bank transfers with a status of DELETED will be included in the response
     # @return [BankTransfers]
     def get_bank_transfers(xero_tenant_id, opts = {})
       data, _status_code, _headers = get_bank_transfers_with_http_info(xero_tenant_id, opts)
@@ -7169,6 +7339,7 @@ module XeroRuby
     # @option opts [DateTime] :if_modified_since Only records created or modified since this timestamp will be returned
     # @option opts [String] :where Filter by an any element
     # @option opts [String] :order Order by an any element
+    # @option opts [Boolean] :include_deleted e.g. includeDeleted&#x3D;true - Bank transfers with a status of DELETED will be included in the response
     # @return [Array<(BankTransfers, Integer, Hash)>] BankTransfers data, response status code and response headers
     def get_bank_transfers_with_http_info(xero_tenant_id, options = {})
       opts = options.dup
@@ -7189,6 +7360,7 @@ module XeroRuby
       query_params = opts[:query_params] || {}
       query_params[:'where'] = opts[:'where'] if !opts[:'where'].nil?
       query_params[:'order'] = opts[:'order'] if !opts[:'order'].nil?
+      query_params[:'includeDeleted'] = opts[:'include_deleted'] if !opts[:'include_deleted'].nil?
       
       # XeroAPI's `IDs` convention openapi-generator does not snake_case properly.. manual over-riding `i_ds` malformations:
       query_params[:'IDs'] = @api_client.build_collection_param(opts[:'ids'], :csv) if !opts[:'ids'].nil?

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **total_tax** | **BigDecimal** | The total tax on the overpayment | [optional] 
 **total** | **BigDecimal** | The total of the overpayment (subtotal + total tax) | [optional] 
 **updated_date_utc** | **DateTime** | UTC timestamp of last update to the overpayment | [optional] 
+**updated_date_utc_string** | **String** | UTC ISO-8601 formatted timestamp of last update to the overpayment | [optional] 
 **currency_code** | [**CurrencyCode**](CurrencyCode.md) |  | [optional] 
 **overpayment_id** | **String** | Xero generated unique identifier | [optional] 
 **currency_rate** | **BigDecimal** | The currency rate for a multicurrency overpayment. If no rate is specified, the XE.com day rate is used | [optional] 
@@ -40,6 +41,7 @@ instance = XeroRuby::Accounting::Overpayment.new(type: null,
                                  total_tax: null,
                                  total: null,
                                  updated_date_utc: /Date(1573755038314)/,
+                                 updated_date_utc_string: 2019-11-14T18:10:38Z,
                                  currency_code: null,
                                  overpayment_id: null,
                                  currency_rate: null,

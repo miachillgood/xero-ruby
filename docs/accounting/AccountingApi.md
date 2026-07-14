@@ -60,6 +60,8 @@ Method | HTTP request | Description
 [**create_tracking_category**](AccountingApi.md#create_tracking_category) | **PUT** /TrackingCategories | Create tracking categories
 [**create_tracking_options**](AccountingApi.md#create_tracking_options) | **PUT** /TrackingCategories/{TrackingCategoryID}/Options | Creates options for a specific tracking category
 [**delete_account**](AccountingApi.md#delete_account) | **DELETE** /Accounts/{AccountID} | Deletes a chart of accounts
+[**delete_bank_transfer**](AccountingApi.md#delete_bank_transfer) | **POST** /BankTransfers/{BankTransferID} | Deletes a specific bank transfer
+[**delete_bank_transfers**](AccountingApi.md#delete_bank_transfers) | **POST** /BankTransfers | Deletes one or more bank transfers
 [**delete_batch_payment**](AccountingApi.md#delete_batch_payment) | **POST** /BatchPayments | Updates a specific batch payment for invoices and credit notes
 [**delete_batch_payment_by_url_param**](AccountingApi.md#delete_batch_payment_by_url_param) | **POST** /BatchPayments/{BatchPaymentID} | Updates a specific batch payment for invoices and credit notes
 [**delete_contact_group_contact**](AccountingApi.md#delete_contact_group_contact) | **DELETE** /ContactGroups/{ContactGroupID}/Contacts/{ContactID} | Deletes a specific contact from a contact group using a unique contact Id
@@ -633,7 +635,7 @@ api_instance = xero_client.<api_set>
 
 
 xero_tenant_id = 'YOUR_XERO_TENANT_ID' # String | Xero identifier for Tenant
-bank_transfers = {"BankTransfers":[{"FromBankAccount":{"Code":"090","Name":"My Savings","AccountID":"00000000-0000-0000-0000-000000000000","Type":"BANK","BankAccountNumber":"123455","Status":"ACTIVE","BankAccountType":"BANK","CurrencyCode":"USD","TaxType":"NONE","EnablePaymentsToAccount":false,"ShowInExpenseClaims":false,"Class":"ASSET","ReportingCode":"ASS","ReportingCodeName":"Assets","HasAttachments":false,"UpdatedDateUTC":"2016-10-17T13:45:33.993-07:00"},"ToBankAccount":{"Code":"088","Name":"Business Wells Fargo","AccountID":"00000000-0000-0000-0000-000000000000","Type":"BANK","BankAccountNumber":"123455","Status":"ACTIVE","BankAccountType":"BANK","CurrencyCode":"USD","TaxType":"NONE","EnablePaymentsToAccount":false,"ShowInExpenseClaims":false,"Class":"ASSET","ReportingCode":"ASS","ReportingCodeName":"Assets","HasAttachments":false,"UpdatedDateUTC":"2016-06-03T08:31:14.517-07:00"},"Amount":"50.00","FromIsReconciled":true,"ToIsReconciled":true,"Reference":"Sub 098801"}]} # BankTransfers | BankTransfers with array of BankTransfer objects in request body
+bank_transfers = {"BankTransfers":[{"FromBankAccount":{"Code":"090","Name":"My Savings","AccountID":"00000000-0000-0000-0000-000000000000","Type":"BANK","BankAccountNumber":"123455","Status":"ACTIVE","BankAccountType":"BANK","CurrencyCode":"USD","TaxType":"NONE","EnablePaymentsToAccount":false,"ShowInExpenseClaims":false,"Class":"ASSET","ReportingCode":"ASS","ReportingCodeName":"Assets","HasAttachments":false,"UpdatedDateUTC":"2016-10-17T13:45:33.993-07:00"},"ToBankAccount":{"Code":"088","Name":"Business Wells Fargo","AccountID":"00000000-0000-0000-0000-000000000000","Type":"BANK","BankAccountNumber":"123455","Status":"ACTIVE","BankAccountType":"BANK","CurrencyCode":"USD","TaxType":"NONE","EnablePaymentsToAccount":false,"ShowInExpenseClaims":false,"Class":"ASSET","ReportingCode":"ASS","ReportingCodeName":"Assets","HasAttachments":false,"UpdatedDateUTC":"2016-06-03T08:31:14.517-07:00"},"Amount":"50.00","FromIsReconciled":true,"ToIsReconciled":true,"Reference":"Sub 098801","FromTracking":[{"TrackingCategoryID":"e2f2f732-e92a-4f3a-9c4d-ee4da0182a13","TrackingOptionID":"cd0a4b7e-3c6b-4b3c-8e2a-1f2d3c4b5a69"}],"ToTracking":[{"TrackingCategoryID":"e2f2f732-e92a-4f3a-9c4d-ee4da0182a13","TrackingOptionID":"9f8e7d6c-5b4a-3c2d-1e0f-a9b8c7d6e5f4"}]}]} # BankTransfers | BankTransfers with array of BankTransfer objects in request body
 opts = {
   idempotency_key: 'KEY_VALUE' # String | This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
 }
@@ -4248,6 +4250,149 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## delete_bank_transfer
+
+> BankTransfers delete_bank_transfer(xero_tenant_id, bank_transfer_id, bank_transfer_delete_by_url_param, opts)
+
+Deletes a specific bank transfer
+
+### Example
+
+```ruby
+# load the gem
+require 'xero-ruby'
+
+creds = {
+  client_id: ENV['CLIENT_ID'],
+  client_secret: ENV['CLIENT_SECRET'],
+  redirect_uri: ENV['REDIRECT_URI'],
+  scopes: ENV['SCOPES']
+}
+xero_client = XeroRuby::ApiClient.new(credentials: creds)
+
+token_set = fetch_valid_token_set(user) # example
+
+xero_client.refresh_token_set(token_set)
+
+# You need to namespace your api method call to one of the following api sets
+# [:accounting_api, :assets_api, :projects_api, :files_api, :payroll_au_api, :payroll_nz_api, :payroll_uk_api, :app_store_api]
+
+api_instance = xero_client.<api_set>
+
+
+
+xero_tenant_id = 'YOUR_XERO_TENANT_ID' # String | Xero identifier for Tenant
+bank_transfer_id = '00000000-0000-0000-0000-000000000000' # String | Xero generated unique identifier for a bank transfer
+bank_transfer_delete_by_url_param = {"Status":"DELETED"} # BankTransferDeleteByUrlParam | 
+opts = {
+  idempotency_key: 'KEY_VALUE' # String | This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+}
+
+begin
+  #Deletes a specific bank transfer
+  result = api_instance.delete_bank_transfer(xero_tenant_id, bank_transfer_id, bank_transfer_delete_by_url_param, opts)
+  p result
+rescue XeroRuby::Accounting::ApiError => e
+  puts "Exception when calling AccountingApi->delete_bank_transfer: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xero_tenant_id** | **String**| Xero identifier for Tenant | 
+ **bank_transfer_id** | [**String**](.md)| Xero generated unique identifier for a bank transfer | 
+ **bank_transfer_delete_by_url_param** | [**BankTransferDeleteByUrlParam**](BankTransferDeleteByUrlParam.md)|  | 
+ **idempotency_key** | **String**| This allows you to safely retry requests without the risk of duplicate processing. 128 character max. | [optional] 
+
+### Return type
+
+[**BankTransfers**](BankTransfers.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## delete_bank_transfers
+
+> BankTransfers delete_bank_transfers(xero_tenant_id, bank_transfers_delete, opts)
+
+Deletes one or more bank transfers
+
+### Example
+
+```ruby
+# load the gem
+require 'xero-ruby'
+
+creds = {
+  client_id: ENV['CLIENT_ID'],
+  client_secret: ENV['CLIENT_SECRET'],
+  redirect_uri: ENV['REDIRECT_URI'],
+  scopes: ENV['SCOPES']
+}
+xero_client = XeroRuby::ApiClient.new(credentials: creds)
+
+token_set = fetch_valid_token_set(user) # example
+
+xero_client.refresh_token_set(token_set)
+
+# You need to namespace your api method call to one of the following api sets
+# [:accounting_api, :assets_api, :projects_api, :files_api, :payroll_au_api, :payroll_nz_api, :payroll_uk_api, :app_store_api]
+
+api_instance = xero_client.<api_set>
+
+
+
+xero_tenant_id = 'YOUR_XERO_TENANT_ID' # String | Xero identifier for Tenant
+bank_transfers_delete = {"BankTransfers":[{"BankTransferID":"6221458a-ef7a-4d5f-9b1c-1b96ce03833c","Status":"DELETED"},{"BankTransferID":"9f0153d5-617c-4903-887b-3875807aa27a","Status":"DELETED"}]} # BankTransfersDelete | BankTransfers with array of BankTransfer objects in request body
+opts = {
+  summarize_errors: false, # Boolean | If false return 200 OK and mix of successfully created objects and any with validation errors
+
+  idempotency_key: 'KEY_VALUE' # String | This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+}
+
+begin
+  #Deletes one or more bank transfers
+  result = api_instance.delete_bank_transfers(xero_tenant_id, bank_transfers_delete, opts)
+  p result
+rescue XeroRuby::Accounting::ApiError => e
+  puts "Exception when calling AccountingApi->delete_bank_transfers: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xero_tenant_id** | **String**| Xero identifier for Tenant | 
+ **bank_transfers_delete** | [**BankTransfersDelete**](BankTransfersDelete.md)| BankTransfers with array of BankTransfer objects in request body | 
+ **summarize_errors** | **Boolean**| If false return 200 OK and mix of successfully created objects and any with validation errors | [optional] [default to false]
+ **idempotency_key** | **String**| This allows you to safely retry requests without the risk of duplicate processing. 128 character max. | [optional] 
+
+### Return type
+
+[**BankTransfers**](BankTransfers.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## delete_batch_payment
 
 > BatchPayments delete_batch_payment(xero_tenant_id, batch_payment_delete, opts)
@@ -6228,7 +6373,9 @@ opts = {
 
   where: 'HasAttachments==true', # String | Filter by an any element
 
-  order: 'Amount ASC' # String | Order by an any element
+  order: 'Amount ASC', # String | Order by an any element
+
+  include_deleted: true # Boolean | e.g. includeDeleted=true - Bank transfers with a status of DELETED will be included in the response
 }
 
 begin
@@ -6249,6 +6396,7 @@ Name | Type | Description  | Notes
  **if_modified_since** | **DateTime**| Only records created or modified since this timestamp will be returned | [optional] 
  **where** | **String**| Filter by an any element | [optional] 
  **order** | **String**| Order by an any element | [optional] 
+ **include_deleted** | **Boolean**| e.g. includeDeleted&#x3D;true - Bank transfers with a status of DELETED will be included in the response | [optional] 
 
 ### Return type
 

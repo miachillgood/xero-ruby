@@ -63,6 +63,9 @@ module XeroRuby::Accounting
     # UTC timestamp of last update to the credit note
     attr_accessor :updated_date_utc
     
+    # UTC ISO-8601 formatted timestamp of last update to the credit note
+    attr_accessor :updated_date_utc_string
+    
 
     attr_accessor :currency_code
     
@@ -155,6 +158,7 @@ module XeroRuby::Accounting
         :'cis_deduction' => :'CISDeduction',
         :'cis_rate' => :'CISRate',
         :'updated_date_utc' => :'UpdatedDateUTC',
+        :'updated_date_utc_string' => :'UpdatedDateUTCString',
         :'currency_code' => :'CurrencyCode',
         :'fully_paid_on_date' => :'FullyPaidOnDate',
         :'credit_note_id' => :'CreditNoteID',
@@ -192,6 +196,7 @@ module XeroRuby::Accounting
         :'cis_deduction' => :'BigDecimal',
         :'cis_rate' => :'BigDecimal',
         :'updated_date_utc' => :'DateTime',
+        :'updated_date_utc_string' => :'String',
         :'currency_code' => :'CurrencyCode',
         :'fully_paid_on_date' => :'Date',
         :'credit_note_id' => :'String',
@@ -280,6 +285,10 @@ module XeroRuby::Accounting
 
       if attributes.key?(:'updated_date_utc')
         self.updated_date_utc = attributes[:'updated_date_utc']
+      end
+
+      if attributes.key?(:'updated_date_utc_string')
+        self.updated_date_utc_string = attributes[:'updated_date_utc_string']
       end
 
       if attributes.key?(:'currency_code')
@@ -424,6 +433,7 @@ module XeroRuby::Accounting
           cis_deduction == o.cis_deduction &&
           cis_rate == o.cis_rate &&
           updated_date_utc == o.updated_date_utc &&
+          updated_date_utc_string == o.updated_date_utc_string &&
           currency_code == o.currency_code &&
           fully_paid_on_date == o.fully_paid_on_date &&
           credit_note_id == o.credit_note_id &&
@@ -453,7 +463,7 @@ module XeroRuby::Accounting
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [type, contact, date, due_date, status, line_amount_types, line_items, sub_total, total_tax, total, cis_deduction, cis_rate, updated_date_utc, currency_code, fully_paid_on_date, credit_note_id, credit_note_number, reference, sent_to_contact, currency_rate, remaining_credit, allocations, applied_amount, payments, branding_theme_id, status_attribute_string, has_attachments, has_errors, validation_errors, warnings, invoice_addresses].hash
+      [type, contact, date, due_date, status, line_amount_types, line_items, sub_total, total_tax, total, cis_deduction, cis_rate, updated_date_utc, updated_date_utc_string, currency_code, fully_paid_on_date, credit_note_id, credit_note_number, reference, sent_to_contact, currency_rate, remaining_credit, allocations, applied_amount, payments, branding_theme_id, status_attribute_string, has_attachments, has_errors, validation_errors, warnings, invoice_addresses].hash
     end
 
     # Builds the object from hash

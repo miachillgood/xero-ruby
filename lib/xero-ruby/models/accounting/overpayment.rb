@@ -52,6 +52,9 @@ module XeroRuby::Accounting
     # UTC timestamp of last update to the overpayment
     attr_accessor :updated_date_utc
     
+    # UTC ISO-8601 formatted timestamp of last update to the overpayment
+    attr_accessor :updated_date_utc_string
+    
 
     attr_accessor :currency_code
     
@@ -117,6 +120,7 @@ module XeroRuby::Accounting
         :'total_tax' => :'TotalTax',
         :'total' => :'Total',
         :'updated_date_utc' => :'UpdatedDateUTC',
+        :'updated_date_utc_string' => :'UpdatedDateUTCString',
         :'currency_code' => :'CurrencyCode',
         :'overpayment_id' => :'OverpaymentID',
         :'currency_rate' => :'CurrencyRate',
@@ -143,6 +147,7 @@ module XeroRuby::Accounting
         :'total_tax' => :'BigDecimal',
         :'total' => :'BigDecimal',
         :'updated_date_utc' => :'DateTime',
+        :'updated_date_utc_string' => :'String',
         :'currency_code' => :'CurrencyCode',
         :'overpayment_id' => :'String',
         :'currency_rate' => :'BigDecimal',
@@ -211,6 +216,10 @@ module XeroRuby::Accounting
 
       if attributes.key?(:'updated_date_utc')
         self.updated_date_utc = attributes[:'updated_date_utc']
+      end
+
+      if attributes.key?(:'updated_date_utc_string')
+        self.updated_date_utc_string = attributes[:'updated_date_utc_string']
       end
 
       if attributes.key?(:'currency_code')
@@ -314,6 +323,7 @@ module XeroRuby::Accounting
           total_tax == o.total_tax &&
           total == o.total &&
           updated_date_utc == o.updated_date_utc &&
+          updated_date_utc_string == o.updated_date_utc_string &&
           currency_code == o.currency_code &&
           overpayment_id == o.overpayment_id &&
           currency_rate == o.currency_rate &&
@@ -335,7 +345,7 @@ module XeroRuby::Accounting
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [type, contact, date, status, line_amount_types, line_items, sub_total, total_tax, total, updated_date_utc, currency_code, overpayment_id, currency_rate, remaining_credit, allocations, applied_amount, payments, has_attachments, reference, attachments].hash
+      [type, contact, date, status, line_amount_types, line_items, sub_total, total_tax, total, updated_date_utc, updated_date_utc_string, currency_code, overpayment_id, currency_rate, remaining_credit, allocations, applied_amount, payments, has_attachments, reference, attachments].hash
     end
 
     # Builds the object from hash

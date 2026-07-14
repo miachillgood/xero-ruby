@@ -129,8 +129,11 @@ module XeroRuby::Accounting
     # Sum of all credit notes, over-payments and pre-payments applied to invoice
     attr_accessor :amount_credited
     
-    # Last modified date UTC format
+    # UTC timestamp of last update to the invoice
     attr_accessor :updated_date_utc
+    
+    # UTC ISO-8601 formatted timestamp of last update to the invoice
+    attr_accessor :updated_date_utc_string
     
     # Details of credit notes that have been applied to an invoice
     attr_accessor :credit_notes
@@ -212,6 +215,7 @@ module XeroRuby::Accounting
         :'fully_paid_on_date' => :'FullyPaidOnDate',
         :'amount_credited' => :'AmountCredited',
         :'updated_date_utc' => :'UpdatedDateUTC',
+        :'updated_date_utc_string' => :'UpdatedDateUTCString',
         :'credit_notes' => :'CreditNotes',
         :'attachments' => :'Attachments',
         :'has_errors' => :'HasErrors',
@@ -259,6 +263,7 @@ module XeroRuby::Accounting
         :'fully_paid_on_date' => :'Date',
         :'amount_credited' => :'BigDecimal',
         :'updated_date_utc' => :'DateTime',
+        :'updated_date_utc_string' => :'String',
         :'credit_notes' => :'Array<CreditNote>',
         :'attachments' => :'Array<Attachment>',
         :'has_errors' => :'Boolean',
@@ -430,6 +435,10 @@ module XeroRuby::Accounting
         self.updated_date_utc = attributes[:'updated_date_utc']
       end
 
+      if attributes.key?(:'updated_date_utc_string')
+        self.updated_date_utc_string = attributes[:'updated_date_utc_string']
+      end
+
       if attributes.key?(:'credit_notes')
         if (value = attributes[:'credit_notes']).is_a?(Array)
           self.credit_notes = value
@@ -562,6 +571,7 @@ module XeroRuby::Accounting
           fully_paid_on_date == o.fully_paid_on_date &&
           amount_credited == o.amount_credited &&
           updated_date_utc == o.updated_date_utc &&
+          updated_date_utc_string == o.updated_date_utc_string &&
           credit_notes == o.credit_notes &&
           attachments == o.attachments &&
           has_errors == o.has_errors &&
@@ -580,7 +590,7 @@ module XeroRuby::Accounting
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [type, contact, line_items, date, due_date, line_amount_types, invoice_number, reference, branding_theme_id, url, currency_code, currency_rate, status, sent_to_contact, expected_payment_date, planned_payment_date, cis_deduction, cis_rate, sub_total, total_tax, total, total_discount, invoice_id, repeating_invoice_id, has_attachments, is_discounted, payments, prepayments, overpayments, amount_due, amount_paid, fully_paid_on_date, amount_credited, updated_date_utc, credit_notes, attachments, has_errors, status_attribute_string, validation_errors, warnings, invoice_addresses].hash
+      [type, contact, line_items, date, due_date, line_amount_types, invoice_number, reference, branding_theme_id, url, currency_code, currency_rate, status, sent_to_contact, expected_payment_date, planned_payment_date, cis_deduction, cis_rate, sub_total, total_tax, total, total_discount, invoice_id, repeating_invoice_id, has_attachments, is_discounted, payments, prepayments, overpayments, amount_due, amount_paid, fully_paid_on_date, amount_credited, updated_date_utc, updated_date_utc_string, credit_notes, attachments, has_errors, status_attribute_string, validation_errors, warnings, invoice_addresses].hash
     end
 
     # Builds the object from hash

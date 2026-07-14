@@ -37,7 +37,8 @@ Name | Type | Description | Notes
 **amount_paid** | **BigDecimal** | Sum of payments received for invoice | [optional] 
 **fully_paid_on_date** | **Date** | The date the invoice was fully paid. Only returned on fully paid invoices | [optional] 
 **amount_credited** | **BigDecimal** | Sum of all credit notes, over-payments and pre-payments applied to invoice | [optional] 
-**updated_date_utc** | **DateTime** | Last modified date UTC format | [optional] 
+**updated_date_utc** | **DateTime** | UTC timestamp of last update to the invoice | [optional] 
+**updated_date_utc_string** | **String** | UTC ISO-8601 formatted timestamp of last update to the invoice | [optional] 
 **credit_notes** | [**Array&lt;CreditNote&gt;**](CreditNote.md) | Details of credit notes that have been applied to an invoice | [optional] 
 **attachments** | [**Array&lt;Attachment&gt;**](Attachment.md) | Displays array of attachments from the API | [optional] 
 **has_errors** | **Boolean** | A boolean to indicate if a invoice has an validation errors | [optional] [default to false]
@@ -85,6 +86,7 @@ instance = XeroRuby::Accounting::Invoice.new(type: null,
                                  fully_paid_on_date: null,
                                  amount_credited: null,
                                  updated_date_utc: /Date(1573755038314)/,
+                                 updated_date_utc_string: 2019-11-14T18:10:38Z,
                                  credit_notes: null,
                                  attachments: null,
                                  has_errors: false,
