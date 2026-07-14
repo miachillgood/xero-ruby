@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **reference** | **String** | Returns Invoice number field. Reference field isn&#39;t available. | [optional] 
 **invoice_number** | **String** | Returns Invoice number for prepayment receive document only. | [optional] 
 **updated_date_utc** | **DateTime** | UTC timestamp of last update to the prepayment | [optional] 
+**updated_date_utc_string** | **String** | UTC ISO-8601 formatted timestamp of last update to the prepayment | [optional] 
 **currency_code** | [**CurrencyCode**](CurrencyCode.md) |  | [optional] 
 **prepayment_id** | **String** | Xero generated unique identifier | [optional] 
 **branding_theme_id** | **String** | The unique identifier of the branding template applied to a receive prepayment | [optional] 
@@ -44,6 +45,7 @@ instance = XeroRuby::Accounting::Prepayment.new(type: null,
                                  reference: null,
                                  invoice_number: null,
                                  updated_date_utc: /Date(1573755038314)/,
+                                 updated_date_utc_string: 2019-11-14T18:10:38Z,
                                  currency_code: null,
                                  prepayment_id: null,
                                  branding_theme_id: null,

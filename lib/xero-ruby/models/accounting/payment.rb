@@ -80,6 +80,9 @@ module XeroRuby::Accounting
     # UTC timestamp of last update to the payment
     attr_accessor :updated_date_utc
     
+    # UTC ISO-8601 formatted timestamp of last update to the payment
+    attr_accessor :updated_date_utc_string
+    
     # The Xero identifier for an Payment e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
     attr_accessor :payment_id
     
@@ -153,6 +156,7 @@ module XeroRuby::Accounting
         :'status' => :'Status',
         :'payment_type' => :'PaymentType',
         :'updated_date_utc' => :'UpdatedDateUTC',
+        :'updated_date_utc_string' => :'UpdatedDateUTCString',
         :'payment_id' => :'PaymentID',
         :'batch_payment_id' => :'BatchPaymentID',
         :'bank_account_number' => :'BankAccountNumber',
@@ -187,6 +191,7 @@ module XeroRuby::Accounting
         :'status' => :'String',
         :'payment_type' => :'String',
         :'updated_date_utc' => :'DateTime',
+        :'updated_date_utc_string' => :'String',
         :'payment_id' => :'String',
         :'batch_payment_id' => :'String',
         :'bank_account_number' => :'String',
@@ -285,6 +290,10 @@ module XeroRuby::Accounting
 
       if attributes.key?(:'updated_date_utc')
         self.updated_date_utc = attributes[:'updated_date_utc']
+      end
+
+      if attributes.key?(:'updated_date_utc_string')
+        self.updated_date_utc_string = attributes[:'updated_date_utc_string']
       end
 
       if attributes.key?(:'payment_id')
@@ -396,6 +405,7 @@ module XeroRuby::Accounting
           status == o.status &&
           payment_type == o.payment_type &&
           updated_date_utc == o.updated_date_utc &&
+          updated_date_utc_string == o.updated_date_utc_string &&
           payment_id == o.payment_id &&
           batch_payment_id == o.batch_payment_id &&
           bank_account_number == o.bank_account_number &&
@@ -417,7 +427,7 @@ module XeroRuby::Accounting
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [invoice, credit_note, prepayment, overpayment, invoice_number, credit_note_number, batch_payment, account, code, date, currency_rate, amount, bank_amount, reference, is_reconciled, status, payment_type, updated_date_utc, payment_id, batch_payment_id, bank_account_number, particulars, details, has_account, has_validation_errors, status_attribute_string, validation_errors, warnings].hash
+      [invoice, credit_note, prepayment, overpayment, invoice_number, credit_note_number, batch_payment, account, code, date, currency_rate, amount, bank_amount, reference, is_reconciled, status, payment_type, updated_date_utc, updated_date_utc_string, payment_id, batch_payment_id, bank_account_number, particulars, details, has_account, has_validation_errors, status_attribute_string, validation_errors, warnings].hash
     end
 
     # Builds the object from hash

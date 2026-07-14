@@ -17,6 +17,9 @@ Name | Type | Description | Notes
 **reference** | **String** | Reference for the transactions. | [optional] 
 **has_attachments** | **Boolean** | Boolean to indicate if a Bank Transfer has an attachment | [optional] [default to false]
 **created_date_utc** | **DateTime** | UTC timestamp of creation date of bank transfer | [optional] 
+**status** | **String** | AUTHORISED or DELETED (read-only). New bank transfers will have a status of AUTHORISED. | [optional] 
+**from_tracking** | [**Array&lt;TrackingReference&gt;**](TrackingReference.md) | Optional Tracking Category for the source account – see Tracking. A bank transfer can have a maximum of 2 tracking categories per account. | [optional] 
+**to_tracking** | [**Array&lt;TrackingReference&gt;**](TrackingReference.md) | Optional Tracking Category for the destination account – see Tracking. A bank transfer can have a maximum of 2 tracking categories per account. | [optional] 
 **validation_errors** | [**Array&lt;ValidationError&gt;**](ValidationError.md) | Displays array of validation error messages from the API | [optional] 
 
 ## Code Sample
@@ -37,6 +40,9 @@ instance = XeroRuby::Accounting::BankTransfer.new(from_bank_account: null,
                                  reference: null,
                                  has_attachments: false,
                                  created_date_utc: /Date(1573755038314)/,
+                                 status: null,
+                                 from_tracking: null,
+                                 to_tracking: null,
                                  validation_errors: null)
 ```
 

@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **cis_deduction** | **BigDecimal** | CIS deduction for UK contractors | [optional] 
 **cis_rate** | **BigDecimal** | CIS Deduction rate for the organisation | [optional] 
 **updated_date_utc** | **DateTime** | UTC timestamp of last update to the credit note | [optional] 
+**updated_date_utc_string** | **String** | UTC ISO-8601 formatted timestamp of last update to the credit note | [optional] 
 **currency_code** | [**CurrencyCode**](CurrencyCode.md) |  | [optional] 
 **fully_paid_on_date** | **Date** | Date when credit note was fully paid(UTC format) | [optional] 
 **credit_note_id** | **String** | Xero generated unique identifier | [optional] 
@@ -54,6 +55,7 @@ instance = XeroRuby::Accounting::CreditNote.new(type: null,
                                  cis_deduction: null,
                                  cis_rate: null,
                                  updated_date_utc: /Date(1573755038314)/,
+                                 updated_date_utc_string: 2019-11-14T18:10:38Z,
                                  currency_code: null,
                                  fully_paid_on_date: null,
                                  credit_note_id: null,
